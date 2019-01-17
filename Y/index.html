@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
 		<!-- JS lib for copy to clipboard -->
-		<script src="./clipboard-polyfill.js"></script>
+		<script src="./clipboard-polyfill.js"/>
 
 		<!-- Custom Javascript -->
 		<script type="text/javascript">
@@ -114,6 +114,10 @@
 
 			<body>
 				<div class="container">
+					<!-- As a heading -->
+					<nav class="navbar navbar-light bg-light">
+						<span class="navbar-brand mb-0 h1">Générateur de signature DigitalPlace</span>
+					</nav>
 					<div class="row">
 						<div class="col">
 							<h1>Explications</h1> 
@@ -190,7 +194,7 @@
 								</table>
 							</div>
 							<div style="margin-top:10px">
-								<textarea id="selectedSignature" style="display: none"></textarea>
+								<textarea id="selectedSignature" style="display: none"/>
 								<button onclick="copyToClipboard()">Copier dans le presse-papier</button>
 								<p>
 									<a id="urlToSave">Lien à enregistrer pour la prochaine fois</a>
