@@ -1,216 +1,213 @@
 <!doctype html>
 <html lang="fr">
 
-<head>
-    <title>Générateur de signature</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
-    <!-- JS lib for copy to clipboard -->
-    <script src="./clipboard-polyfill.js"></script>
-    <!-- Custom Javascript -->
-    <script type="text/javascript">
-    function onFormSubmit() {
-        var form = document.getElementById("form");
+	<head>
+	    <title>Générateur de signature</title>
+	    <!-- Required meta tags -->
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+	    <!-- JS lib for copy to clipboard -->
+	    <script src="./clipboard-polyfill.js"></script>
+	    <!-- Custom Javascript -->
+	    <script type="text/javascript">
+	    function onFormSubmit() {
+	        var form = document.getElementById("form");
 
-        // Get values from form
-        var firstname = form.elements["firstname"].value;
-        var name = form.elements["name"].value;
-        var email = form.elements["email"].value;
-        var title = form.elements["title"].value;
-        var mobile = form.elements["mobile"].value;
-        var phone = form.elements["phone"].value;
+	        // Get values from form
+	        var firstname = form.elements["firstname"].value;
+	        var name = form.elements["name"].value;
+	        var email = form.elements["email"].value;
+	        var title = form.elements["title"].value;
+	        var mobile = form.elements["mobile"].value;
+	        var phone = form.elements["phone"].value;
 
-        // No control for now
+	        // No control for now
 
-        // Fill signature
-        document.getElementById('signatureName').innerHTML = firstname + " " + name;
-        document.getElementById('signatureEmail').innerHTML = email;
-        document.getElementById('signatureEmail').setAttribute("href", "mailto:" + email);
-        document.getElementById('signatureTitle').innerHTML = title;
-        document.getElementById('signatureMobile').innerHTML = mobile;
-        document.getElementById('signatureMobile').setAttribute("href", "tel:" + mobile.trim());
-        document.getElementById('signaturePhone').innerHTML = phone;
-        document.getElementById('signaturePhone').setAttribute("href", "tel:" + phone.trim());
+	        // Fill signature
+	        document.getElementById('signatureName').innerHTML = firstname + " " + name;
+	        document.getElementById('signatureEmail').innerHTML = email;
+	        document.getElementById('signatureEmail').setAttribute("href", "mailto:" + email);
+	        document.getElementById('signatureTitle').innerHTML = title;
+	        document.getElementById('signatureMobile').innerHTML = mobile;
+	        document.getElementById('signatureMobile').setAttribute("href", "tel:" + mobile.trim());
+	        document.getElementById('signaturePhone').innerHTML = phone;
+	        document.getElementById('signaturePhone').setAttribute("href", "tel:" + phone.trim());
 
-        var urlToSave = window.location.hostname + "?" + "firstname=" + firstname + "&name=" + name + "&email=" + email + "&title=" + title + "&mobile=" + mobile + "&phone=" + phone;
-        document.getElementById('urlToSave').setAttribute("href", urlToSave);
-    }
+	        var urlToSave = window.location.hostname + "?" + "firstname=" + firstname + "&name=" + name + "&email=" + email + "&title=" + title + "&mobile=" + mobile + "&phone=" + phone;
+	        document.getElementById('urlToSave').setAttribute("href", urlToSave);
+	    }
 
-    function copyToClipboard() {
-        /* Get the text field */
-        var signatureHTML = document.getElementById("signature");
-        var textareaForCopy = document.getElementById("selectedSignature");
-        textareaForCopy.value = signatureHTML.innerHTML;
+	    function copyToClipboard() {
+	        /* Get the text field */
+	        var signatureHTML = document.getElementById("signature");
+	        var textareaForCopy = document.getElementById("selectedSignature");
+	        textareaForCopy.value = signatureHTML.innerHTML;
 
-        /* Select the text field */
-        // signatureHTML.select();
+	        /* Select the text field */
+	        // signatureHTML.select();
 
-        //  Copy the text inside the text field 
-        // document.execCommand( 'copy' );
+	        //  Copy the text inside the text field 
+	        // document.execCommand( 'copy' );
 
-        var dt = new clipboard.DT();
-        dt.setData("text/html", signatureHTML.innerHTML);
-        clipboard.write(dt);
+	        var dt = new clipboard.DT();
+	        dt.setData("text/html", signatureHTML.innerHTML);
+	        clipboard.write(dt);
 
-        /* Alert the copied text */
-        alert("Texte copié");
-    }
+	        /* Alert the copied text */
+	        alert("Texte copié");
+	    }
 
-    function preFillForm() {
-        var params = {};
+	    function preFillForm() {
+	        var params = {};
 
-        if (location.search) {
-            var parts = location.search.substring(1).split('&');
+	        if (location.search) {
+	            var parts = location.search.substring(1).split('&');
 
-            var form = document.getElementById("form");
-            for (var i = 0; i < parts.length; i++) {
-                try {
-                    var param = parts[i].split('=');
-                    var key = param[0];
-                    var value = param[1];
+	            var form = document.getElementById("form");
+	            for (var i = 0; i < parts.length; i++) {
+	                try {
+	                    var param = parts[i].split('=');
+	                    var key = param[0];
+	                    var value = param[1];
 
-                    switch (key) {
-                        case "firstname":
-                            form.elements["firstname"].value = decodeURIComponent(value);
-                            break;
-                        case "name":
-                            form.elements["name"].value = decodeURIComponent(value);
-                            break;
-                        case "email":
-                            form.elements["email"].value = decodeURIComponent(value);
-                            break;
-                        case "title":
-                            form.elements["title"].value = decodeURIComponent(value);
-                            break;
-                        case "mobile":
-                            form.elements["mobile"].value = decodeURIComponent(value);
-                            break;
-                        case "phone":
-                            form.elements["phone"].value = decodeURIComponent(value);
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (error) {
+	                    switch (key) {
+	                        case "firstname":
+	                            form.elements["firstname"].value = decodeURIComponent(value);
+	                            break;
+	                        case "name":
+	                            form.elements["name"].value = decodeURIComponent(value);
+	                            break;
+	                        case "email":
+	                            form.elements["email"].value = decodeURIComponent(value);
+	                            break;
+	                        case "title":
+	                            form.elements["title"].value = decodeURIComponent(value);
+	                            break;
+	                        case "mobile":
+	                            form.elements["mobile"].value = decodeURIComponent(value);
+	                            break;
+	                        case "phone":
+	                            form.elements["phone"].value = decodeURIComponent(value);
+	                            break;
+	                        default:
+	                            break;
+	                    }
+	                } catch (error) {
 
-                }
-            }
-        }
+	                }
+	            }
+	        }
 
-        // Now you can get the parameters you want like so:
-        onFormSubmit();
-    }
+	        // Now you can get the parameters you want like so:
+	        onFormSubmit();
+	    }
 
-    window.onload = function() {
-        preFillForm();
-    };
-    </script>
-    <!-- Custom CSS -->
-    <style>
-        h1 {
-  margin-top: 40px;
-}
-				</style>
-</head>
+	    window.onload = function() {
+	        preFillForm();
+	    };
+	    </script>
+	    <!-- Custom CSS -->
+	    <style>
+	        h1 {
+	  margin-top: 40px;
+	}
+					</style>
+	</head>
 
-<body>
-    <div class="container">
-        <!-- As a heading -->
-        <nav class="navbar navbar-light bg-light">
-            <span class="navbar-brand mb-0 h1">Générateur de signature DigitalPlace</span>
-        </nav>
-        <div class="row">
-            <div class="col">
-                <h1>Explications</h1>
-                <p>Voici le script pour générer sa signature de mail DigitalPlace.</p>
-                <p>Pour cela :</p>
-                <ul>
-                    <ol>1- Saisir ses informations</ol>
-                    <ol>2- Cliquer sur "générer la signature"</ol>
-                    <ol>3- Cliquer sur "Copier la signature"</ol>
-                    <ol>4- Coller le contenu où cela est nécessaire, ex : dans la fonctionnalité signature de Gmail</ol>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1>Saisir mes informations</h1>
-                <form action="javascript:onFormSubmit()" id="form">
-                    <p>Prénom :
-                        <input type="text" name="firstname" placeholder="Julien" />
-                    </p>
-                    <p>Nom :
-                        <input type="text" name="name" placeholder="Del Rio" />
-                    </p>
-                    <p>Email :
-                        <input type="email" name="email" placeholder="julien.delrio@digitalplace.fr" />
-                    </p>
-                    <p>Titre :
-                        <input type="text" name="title" placeholder="Chargé de projets" />
-                    </p>
-                    <p>Téléphone mobile :
-                        <input type="tel" name="mobile" placeholder="06 23 38 34 85" />
-                    </p>
-                    <p>Téléphone fixe :
-                        <input type="tel" name="phone" placeholder="05 34 31 41 98" />
-                    </p>
-                    <button type="submit">Générer</button>
-                </form>
-            </div>
-            <div class="col">
-                <h1>Résultat</h1>
-                <div id="signature">
-                    <table style="font-family: 'Lato', sans-serif; ">
-                        <tr>
-                            <td>
-                                <a href="https://www.gcno.fr/" imageanchor="1">
-												<img border="0" src="https://sites.google.com/a/digitalplace.fr/signatures-dp/_/rsrc/1547718219620/home/signature-2017/unnamed.jpg"/>
-											</a>
-                            </td>
-                            <td style="font-size: 10px">
-                                <p id="signatureName" style="font-size: 13px; margin: 5px;">Julien Del Rio</p>
-                                <p style="margin: 5px;" id="signatureTitle">Chargé de projets Label Cloud, Innovation IT Day et IDEA Day</p>
-                                <p style="display:block;text-align:left; margin: 5px;">
-                                    <img border="0" src="https://sites.google.com/a/digitalplace.fr/signatures-dp/_/rsrc/1491388566141/home/signature-2017/icon%20mail.png"/> &nbsp;
-                                    <a id="signatureEmail" href="mailto:julien.delrio@digitalplace.fr">julien.delrio@digitalplace.fr</a>
-                                </p>
-                                <p style="display:block;text-align:left; margin: 5px;">
-                                    <img border="0" src="https://sites.google.com/a/digitalplace.fr/signatures-dp/_/rsrc/1491388571077/home/signature-2017/icon%20phone.png"/> &nbsp;
-                                    <span style="background-color:transparent;font-family:Arial,Verdana,sans-serif">
-													<a id="signaturePhone" href="tel:+33534314197">+33 5 34 31 41 97</a> ou <a id="signatureMobile" href="tel:+33623383485">+33 6 23 38 34 85</a>
-												</span>
-                                </p>
-                                <p style="display:block;text-align:left; margin: 5px;">
-                                    <a href="https://twitter.com/DigitalPlaceICT" imageanchor="1" rel="nofollow">
-													<img border="0" src="https://sites.google.com/a/digitalplace.fr/signatures-dp/_/rsrc/1491388574217/home/signature-2017/icon%20twitter.png"/>
-												</a>&nbsp;
-                                    <a href="https://www.linkedin.com/in/JulienDelRIo" imageanchor="1" rel="nofollow">
-													<img border="0" src="https://sites.google.com/a/digitalplace.fr/signatures-dp/_/rsrc/1491388562703/home/signature-2017/icon%20linkedin.png"/>
-												</a>&nbsp; DigitalPlace est membre de <a href="http://france-it.fr/" target="_blank" rel="nofollow">France IT</a>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div style="margin-top:10px">
-                    <textarea id="selectedSignature" style="display: none"></textarea>
-                    <button onclick="copyToClipboard()">Copier dans le presse-papier</button>
-                    <p>
-                        <a id="urlToSave">Lien à enregistrer pour la prochaine fois</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"/>
-				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"/>
+	<body>
+	    <div class="container">
+	        <!-- As a heading -->
+	        <nav class="navbar navbar-light bg-light">
+	            <span class="navbar-brand mb-0 h1">Générateur de signature Digital 113</span>
+	        </nav>
+	        <div class="row">
+	            <div class="col">
+	                <h1>Explications</h1>
+	                <p>Voici le script pour générer sa signature de mail Digita l113.</p>
+	                <p>Pour cela :</p>
+	                <ul>
+	                    <ol>1- Saisir ses informations</ol>
+	                    <ol>2- Cliquer sur "générer la signature"</ol>
+	                    <ol>3- Cliquer sur "Copier la signature"</ol>
+	                    <ol>4- Coller le contenu où cela est nécessaire, ex : dans la fonctionnalité signature de Gmail</ol>
+	                </ul>
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col">
+	                <h1>Saisir mes informations</h1>
+	                <form action="javascript:onFormSubmit()" id="form">
+	                    <p>Prénom :
+	                        <input type="text" name="firstname" placeholder="Julien" />
+	                    </p>
+	                    <p>Nom :
+	                        <input type="text" name="name" placeholder="Del Rio" />
+	                    </p>
+	                    <p>Email :
+	                        <input type="email" name="email" placeholder="julien.delrio@digital113.fr" />
+	                    </p>
+	                    <p>Titre :
+	                        <input type="text" name="title" placeholder="Chargé de projets" />
+	                    </p>
+	                    <p>Téléphone mobile :
+	                        <input type="tel" name="mobile" placeholder="06 23 38 34 85" />
+	                    </p>
+	                    <p>Téléphone fixe :
+	                        <input type="tel" name="phone" placeholder="05 34 31 41 98" />
+	                    </p>
+	                    <button type="submit">Générer</button>
+	                </form>
+	            </div>
+	            <div class="col">
+	                <h1>Résultat</h1>
+	                <div id="signature">
+	                    <table style="font-family: Gilroy, Verdana, Geneva, Sans-Serif; ">
+	                        <tr>
+	                            <td style="margin-right: 10px; padding-right: 10px; border-right-style: solid; border-right-width: 2px; border-right-color: #cc0033">
+	                                <a href="https://www.digital113.fr/" imageanchor="1">
+													<img border="0" src="./images/Digital113-rounded.png"/>
+												</a>
+	                            </td>
+	                            <td style="font-size: 10px; color: #12204c"">
+	                                <p id="signatureName" style="font-weight: bold; ; font-size: 13px; margin: 5px; color: #ff0033">Julien Del Rio</p>
+	                                <p style="margin: 5px;" id="signatureTitle">Chargé de projets Label Cloud, Innovation IT Day et IDEA Day</p>
+	                                <p style="display:block;text-align:left; margin: 5px;">
+	                                    <img border="0" src="./images/003-email-envelope.png"/> &nbsp;
+	                                    <a style="color: #12204c" id="signatureEmail" href="mailto:julien.delrio@digital113.fr">julien.delrio@digital113.fr</a>
+	                                </p>
+	                                <p style="display:block;text-align:left; margin: 5px;">
+	                                    <img border="0" src="./images/004-phone.png"/> &nbsp;
+	                                    <span style="background-color:transparent;font-family:Arial,Verdana,sans-serif">
+														<a style="color: #12204c" id="signaturePhone" href="tel:+33534314197">+33 5 34 31 41 97</a> ou <a style="color: #12204c" id="signatureMobile" href="tel:+33623383485">+33 6 23 38 34 85</a>
+													</span>
+	                                </p>
+	                                <p style="display:block;text-align:left; margin: 5px;">
+	                                    <a href="https://twitter.com/Digital113_" imageanchor="1" rel="nofollow">
+														<img border="0" src="./images/001-twitter.png"/></a>&nbsp;
+	                                    <a href="https://www.linkedin.com/in/Digital113" imageanchor="1" rel="nofollow">
+														<img border="0" src="./images/002-linkedin-button.png"/></a>&nbsp; Digital 113 est membre de <a style="color: #12204c" href="http://france-it.fr/" target="_blank" rel="nofollow">France IT</a>
+	                                </p>
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </div>
+	                <div style="margin-top:10px">
+	                    <textarea id="selectedSignature" style="display: none"></textarea>
+	                    <button onclick="copyToClipboard()">Copier dans le presse-papier</button>
+	                    <p>
+	                        <a id="urlToSave">Lien à enregistrer pour la prochaine fois</a>
+	                    </p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" />
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"/>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"/>
 
-			</body>
-
-		</html>
+	</body>
+</html>
