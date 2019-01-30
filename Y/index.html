@@ -35,7 +35,7 @@
 	        document.getElementById('signaturePhone').innerHTML = phone;
 	        document.getElementById('signaturePhone').setAttribute("href", "tel:" + phone.trim());
 
-	        var urlToSave = window.location.hostname + "?" + "firstname=" + firstname + "&name=" + name + "&email=" + email + "&title=" + title + "&mobile=" + mobile + "&phone=" + phone;
+	        var urlToSave = "https://" + window.location.hostname + "?" + "firstname=" + firstname + "&name=" + name + "&email=" + email + "&title=" + title + "&mobile=" + mobile + "&phone=" + phone;
 	        document.getElementById('urlToSave').setAttribute("href", urlToSave);
 	    }
 
