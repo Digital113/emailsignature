@@ -62,7 +62,11 @@
 	    function preFillForm() {
 	        var params = {};
 
-	        if (location.search) {
+	        if (location.hostname === "localhost"){
+	        	// Do nothing it's test
+	        	console.log("We are on test");
+	        	break;
+	        } else if (location.search) {
 	            var parts = location.search.substring(1).split('&');
 
 	            var form = document.getElementById("form");
